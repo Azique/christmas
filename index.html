@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Генератор открыток</title>
+  <script src="scripts/watermark-polyfill.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Marck+Script&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <meta property="og:url"           content="http://azique.github.io/christmas/" />
+	<meta property="og:type"          content="website" />
+	<meta property="og:title"         content="Генератор открыток" />
+	<meta property="og:description"   content="Генератор открыток" />
+	<meta property="og:image"         content="http://azique.github.io/christmas/" />
+</head>
+
+<body>
+  <div class="container" id="container">
+<center><form >
+  <p>Текст поздравления:</p> <input type="text" name="fname" id="cardtext" maxlength="27">
+ <p onclick="greet()" style="cursor:pointer;background-color: #8c51c2;width: 120px;">Создать</p>
+</form></center>
+    <div class="example" id="card" >
+
+    </div>
+
+  </div>
+<!-- Load Facebook SDK for JavaScript -->
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
+	<!-- Your share button code -->
+	<div class="fb-share-button" 
+		data-href="http://azique.github.io/christmas/" 
+		data-layout="button_count">
+	</div>
+
+  <script>
+    setTimeout(function () { //ensure font faces are loaded
+      // lower right positioning
+    	var text = watermark.text;
+      
+
+      var x = function(card, metrics, context) {
+        return 25;
+      };
+
+      var y = function(card, metrics, context) {
+        return 90;
+      };
+
+      pos = text.atPos;
+      watermark(['card.png'])
+        .image(pos(x, y, 'Набери текст в поле сверху', '44px Marck Script', '#c25d44', 1))
+        .then(function (img) {
+          var pre = document.querySelector('#card');
+         pre.appendChild(img, pre);
+        });
+
+
+    }, 1000);
+    var greet = function (){
+    var text = watermark.text;
+    pos = text.atPos;
+    var x = function(card, metrics, context) {
+        return 30;
+      };
+
+      var y = function(card, metrics, context) {
+        return 90;
+      };    
+      watermark(['card.jpg'])
+        .image(pos(x, y, document.getElementById('cardtext').value, '44px Marck Script', '#c25d44', 1))
+        .then(function (img) {
+          var pre = document.querySelector('#card');
+         // pre.parentNode.insertBefore(img, pre);
+         pre.removeChild(document.querySelector('#card img'));
+         pre.appendChild(img, pre);
+        });
+
+      }
+      
+      document.getElementById('cardtext').onkeypress = function(e){
+    if (!e) e = window.event;
+    var keyCode = e.keyCode || e.which;
+    if (keyCode == '13'){
+			greet();
+	      return false;
+    }
+  }
+      
+ var QueryString = function () {
+  // This function is anonymous, is executed immediately and 
+  // the return value is assigned to QueryString!
+  var query_string = {};
+  var query = window.location.search.substring(1);
+  var vars = query.split("+");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+        // If first entry with this name
+    if (typeof query_string[pair[0]] === "undefined") {
+      query_string[pair[0]] = decodeURIComponent(pair[1]);
+        // If second entry with this name
+    } else if (typeof query_string[pair[0]] === "string") {
+      var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+      query_string[pair[0]] = arr;
+        // If third or later entry with this name
+    } else {
+      query_string[pair[0]].push(decodeURIComponent(pair[1]));
+    }
+  } 
+    return query_string;
+}();
+
+  </script>
+
+</body>
+
+</html>
