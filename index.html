@@ -17,16 +17,6 @@
 </head>
 
 <body>
-  <div class="container" id="container">
-<center><form >
-  <p>Текст поздравления:</p> <input type="text" name="fname" id="cardtext" maxlength="27">
- <p onclick="greet()" style="cursor:pointer;background-color: #8c51c2;width: 120px;">Создать</p>
-</form></center>
-    <div class="example" id="card" >
-
-    </div>
-
-  </div>
 <!-- Load Facebook SDK for JavaScript -->
 	<div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -36,12 +26,23 @@
   js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script> 
+  <div class="container" id="container">
+<center><form >
+  <p>Текст поздравления:</p> <input type="text" name="fname" id="cardtext" maxlength="27">
+ <p onclick="greet()" style="cursor:pointer;background-color: #8c51c2;width: 120px;">Создать</p>
+</form></center>
+    <div class="example" id="card" >
 
+    </div>
 	<!-- Your share button code -->
 	<div class="fb-share-button" 
 		data-href="http://azique.github.io/christmas/" 
 		data-layout="button_count">
 	</div>
+  </div>
+
+
+
 
   <script>
     setTimeout(function () { //ensure font faces are loaded
